@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function mostrar() {
+            var conteudo = document.getElementById("conteudo");
+            conteudo.innerHTML = "OUTRO TEXTO";
+            conteudo.style.color = "pink";
+            conteudo.style.backgroundColor = "black";
+            animarTexto(conteudo); 
+        }
+
+        function animarTexto(elemento) {
+            let tamanho = 8; 
+            let crescendo = true;
+
+            
+            let animacao = setInterval(() => {
+                if (crescendo) {
+                    tamanho += 2;
+                    if (tamanho >= 64) {
+                        crescendo = false; 
+                    }
+                } else {
+                    tamanho -= 2;
+                    if (tamanho <= 8) {
+                        crescendo = true;
+                    }
+                }
+                elemento.style.fontSize = tamanho + "px";
+            }, 100); 
+
+            
+            setTimeout(() => {
+                clearInterval(animacao);
+                elemento.style.fontSize = "16px";
+            }, 3000);
+        }
+
+        function voltacor() {
+            var conteudo = document.getElementById("conteudo");
+            conteudo.style.color = "pink";
+            conteudo.style.backgroundColor = "black";
+        }
+
+        function mudacor() {
+            var conteudo = document.getElementById("conteudo");
+            conteudo.style.color = "black";
+            conteudo.style.backgroundColor = "pink";
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Exemplo JavaScript</h1>
+    <p id="conteudo" onmouseover="mudacor()" onmouseout="voltacor()">Texto qualquer</p>
+    <button onclick="mostrar()">Clique aqui </button>
+</body>
+
+</html>
