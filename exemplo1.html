@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+    <script> 
+        function mostrar(){
+            // alert("teste");
+            var conteudo = document.getElementById('conteudo');
+            conteudo.innerHTML = "texto diferente";
+            conteudo.style.color = "white";
+            conteudo.style.backgroundColor = "blue";
+        }
+        function mudarCor(x){
+            var conteudo = document.getElementById('conteudo');
+            conteudo.innerHTML = "texto diferente";
+            conteudo.style.color = "red";
+            conteudo.style.backgroundColor = "orange";
+        }
+        function voltarCor(x){
+            var conteudo = document.getElementById('conteudo');
+            conteudo.innerHTML = "texto diferente";
+            conteudo.style.color = "white";
+            conteudo.style.backgroundColor = "blue";
+        }
+          function normalImg(x) {
+            x.style.height = "50px";
+            x.style.width = "50px";
+        }
+        function bigImg(x) {
+            x.style.height = "90px";
+            x.style.width = "90px";
+          }
+    </script>
+</head>
+<body>
+    <h1>Exemplo JavaScript</h1>
+    <p id="conteudo" onmouseenter="mudarCor(conteudo)"onmouseleave=
+    "mostrar(conteudo)"color="purple"backgroundColor="yellow">texto diferente </p>
+    <img onmouseover="bigImg(this)" onmouseout="normalImg(this)" 
+    src="https://static.vecteezy.com/system/resources/previews/014/524/939/non_2x/cartoon-emoticon-illustration-free-png.png" 
+    alt="Smiley" width="150" height="150">
+    <br>
+    <button onclick="mostrar()">Clique aqui</button>
+</body>
+</html>
