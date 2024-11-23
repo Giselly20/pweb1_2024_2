@@ -16,7 +16,7 @@ class db {
 
         try{
             $conn = new PDO(//objeto
-                "mysql:host=$this->host;dbname=$this->dbname",
+                "mysql:host=$this->host;dbname=$this->dbname;port=$this->port;",
                 $this->user,
                 $this->password,
                 [
@@ -53,6 +53,33 @@ class db {
         $st = $conn->prepare($sql);
 
         $st->execute();
+
+        return $st->fetchALL(PDO::FETCH_CLASS);
+
+            
+    }
+    public function destroy($id){
+        $conn = $this->conn();
+
+        $sql = "DELETE FROM categoria WHERE id =?";
+
+        $stmt = $conn->prepare($sql);
+
+        $stmt->execute([$id]);
+            
+    }
+    public function search($dados){
+
+        $campo = $dados['tipo'];
+        $valor = $dados['valor'];
+
+        $conn = $this->conn();
+
+        $sql = "SELECT * FROM categoria WHERE $campo LIKE ?";
+
+        $st = $conn->prepare($sql);
+
+        $st->execute(["%$valor%"]);
 
         return $st->fetchALL(PDO::FETCH_CLASS);
 
