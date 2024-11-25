@@ -7,10 +7,14 @@ class db {
     private $password = "";
     private $port = "3307";
     private $dbname ="db_pweb1_2024_2_blog";
+    private $table_name;
 
-    /*public function __construct(){
+    public function __construct($table_name){
         $this->conn();
-    }*/
+        $this->table_name = $table_name;
+
+    }
+    
 
    public function conn(){
 
@@ -36,7 +40,7 @@ class db {
     public function insert($dados){
         $conn = $this->conn();
 
-        $sql = "INSERT INTO categoria (nome) VALUES (?)";
+        $sql = "INSERT INTO $this->table_name (nome) VALUES (?)";
 
         $stmt = $conn->prepare($sql);
 
@@ -48,7 +52,7 @@ class db {
 
         $conn = $this->conn();
 
-        $sql = "SELECT * FROM categoria";
+        $sql = "SELECT * FROM $this->table_name";
 
         $st = $conn->prepare($sql);
 
@@ -61,7 +65,7 @@ class db {
     public function destroy($id){
         $conn = $this->conn();
 
-        $sql = "DELETE FROM categoria WHERE id =?";
+        $sql = "DELETE FROM $this->table_name WHERE id =?";
 
         $stmt = $conn->prepare($sql);
 
@@ -75,7 +79,7 @@ class db {
 
         $conn = $this->conn();
 
-        $sql = "SELECT * FROM categoria WHERE $campo LIKE ?";
+        $sql = "SELECT * FROM $this->table_name WHERE $campo LIKE ?";
 
         $st = $conn->prepare($sql);
 
@@ -83,6 +87,36 @@ class db {
 
         return $st->fetchALL(PDO::FETCH_CLASS);
 
+            
+    }
+
+    public function find($id){
+
+        $conn = $this->conn();
+
+        $sql = "SELECT * FROM $this->table_name WHERE id LIKE ?";
+
+        $st = $conn->prepare($sql);
+
+        $st->execute([$id]);
+
+        return $st->fetchObject();
+
+    }
+
+    public function update($dados){
+
+
+        //var_dump($dados);
+      //  exit;
+        $id = $dados['id'];
+        $conn = $this->conn();
+
+        $sql = "UPDATE $this->table_name SET nome= ? WHERE id = $id";
+
+        $stmt = $conn->prepare($sql);
+
+        $stmt->execute([$dados['nome']]);
             
     }
 }
