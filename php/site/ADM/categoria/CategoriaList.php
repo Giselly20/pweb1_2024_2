@@ -1,7 +1,7 @@
 <?php
 include"../DB.class.php";
 
-    $db = new db();
+    $db = new db('categoria');
     $dados = $db->all();
 
     if(!empty($_GET['id'])){
