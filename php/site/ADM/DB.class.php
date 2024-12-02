@@ -54,7 +54,7 @@ class db {
 
         $conn = $this->conn();
 
-        $sql = "SELECT * FROM $this->table_name";
+        $sql = "SELECT * FROM $table_name";
 
         $st = $conn->prepare($sql);
 

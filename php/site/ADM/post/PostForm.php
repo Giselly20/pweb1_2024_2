@@ -3,9 +3,9 @@ include"../DB.class.php";
 
     $db = new db('post');
     $categorias = $db->all('categoria');
-    
-    var_dump($categoria);
-    exit;
+
+   // var_dump($categorias);
+    //exit;
 
     if(!empty($_POST) ){
         if(empty($_POST['id']) ){
