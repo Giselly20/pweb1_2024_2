@@ -37,14 +37,31 @@ class db {
         }
         
     }
-    public function insert($dados){
-        $conn = $this->conn();
+    public function insert($data){
 
-        $sql = "INSERT INTO $this->table_name (nome) VALUES (?)";
+        $conn = $this->conn();
+        $sql = "INSERT INTO $this->table_name (";
+        $flag = 0;
+        $array_values = [];
+        unset($data["id"]);
+
+        foreach ($data as $campo => $valor) {
+            $sql .= $flag == 0 ? "$campo" : ",$campo";
+            $flag = 1;
+
+        }
+        $sql .= ") VALUES (";
+        $flag = 0;
+        
+        foreach ($data as $campo => $valor) {
+            $sql .= $flag == 0 ? "?" : ",?";
+            $flag = 1;
+            $array_values[] = $valor; 
+        }
+        $sql .= ")";
 
         $stmt = $conn->prepare($sql);
-
-        $stmt->execute([$dados['nome']]);
+        $stmt->execute($array_values);
             
     }
 
@@ -92,11 +109,13 @@ class db {
             
     }
 
-    public function find($id){
+    public function find($id, $table_name = null){
+
+        $table_name = !empty($table_name) ? $table_name : $this->table_name;
 
         $conn = $this->conn();
 
-        $sql = "SELECT * FROM $this->table_name WHERE id LIKE ?";
+        $sql = "SELECT * FROM $table_name WHERE id LIKE ?";
 
         $st = $conn->prepare($sql);
 
@@ -106,19 +125,25 @@ class db {
 
     }
 
-    public function update($dados){
+    public function update($data){
 
 
-        //var_dump($dados);
-      //  exit;
-        $id = $dados['id'];
-        $conn = $this->conn();
+    //var_dump($dados);
+    //  exit;
+    $conn = $this->conn();
+    $sql = "UPDATE $this->table_name SET ";
+    $flag = 0;
+    $id = $data['id'];
+    $array_values = [];
 
-        $sql = "UPDATE $this->table_name SET nome= ? WHERE id = $id";
-
-        $stmt = $conn->prepare($sql);
-
-        $stmt->execute([$dados['nome']]);
+    foreach ($data as $campo => $valor) {
+        $sql .= $flag == 0 ? "$campo=?" : ",$campo=?";
+        $flag = 1;
+        $array_values[] = $valor;
+    }
+    $sql .= " WHERE id = $id";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute($array_values);
             
     }
 }
