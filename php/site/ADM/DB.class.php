@@ -50,7 +50,7 @@ class db {
 
     public function all($table_name = null){
 
-        $table_name = !empty($table_name) ? $table_name : $this->table_name;
+        $table_name =!empty($table_name) ? $table_name : $this->table_name;
 
         $conn = $this->conn();
 

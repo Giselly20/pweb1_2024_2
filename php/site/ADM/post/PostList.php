@@ -46,8 +46,8 @@ include"../DB.class.php";
                     <tr>
                         <td>$item->id</td>
                         <td>$item->nome</td>
-                        <td><a href='./CategoriaForm.php?id=$item->id'>Editar</td>
-                        <td><a onclick='return confirm(\"Deseja Excluir? \")' href='./CategoriaList.php?id=$item->id'>Deletar</td>
+                        <td><a href='./PostForm.php?id=$item->id'>Editar</td>
+                        <td><a onclick='return confirm(\"Deseja Excluir? \")' href='./PostList.php?id=$item->id'>Deletar</td>
                     </tr>
                     ";
                 }
